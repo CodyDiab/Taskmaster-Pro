@@ -46,7 +46,7 @@ var saveTasks = function() {
 };
 // $(".list-group").on("click","p", function(){
   
-// })
+// edit list item content
 $(".list-group").on("click" , "p", function(){
   var text =$(this)
   .text()
@@ -80,7 +80,7 @@ tasks[status][index].text = text;
  
   })
 })
-
+//edit list date
 $(".list-group").on("click","span",function(){
 
   var date = $(this)
@@ -93,11 +93,18 @@ $(".list-group").on("click","span",function(){
    .val(date);
   
 $(this).replaceWith(dateInput);
+dateInput.datepicker({
+  minDate: 1,
+  onClose: function(){
+    // forces change when calender is closed
+    $(this).trigger("change");
+  }
+})
 
 dateInput.trigger("focus");
 
 
-$(".list-group").on("blur", "input[type='text']",function(){
+$(".list-group").on("change", "input[type='text']",function(){
  var date = $(this)
    .val()
    .trim();
@@ -170,7 +177,7 @@ $(".card .list-group").sortable({
 
 
 });
-
+//trash dropable function
 $("#trash").droppable({
   accept: ".card .list-group-item",
   tolerance: "touch",
@@ -186,7 +193,10 @@ $("#trash").droppable({
     console.log("out");
   }
 })
-
+//date picker for modal
+$("#modalDueDate").datepicker({
+  mindate: 1
+})
 
 
 // modal was triggered
